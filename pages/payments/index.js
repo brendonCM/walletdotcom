@@ -37,6 +37,8 @@ export async function getServerSideProps(context) {
   });
 
   const responseJSON = await response.json();
+
+  //Set the ID to be used in another page
   
   return {
     props: {
@@ -47,8 +49,9 @@ export async function getServerSideProps(context) {
 
 
 export default function Payments(props) {
+  console.log(props)
 
-  const shopperResultUrl = "http://localhost:3000"
+  const shopperResultUrl = "http://localhost:3000/status"
 
   //const {payerName, setPayerName, recipientPaymentEmail, setRecipientPaymentEmail,amount, setAmount} = useContext(paymentContext);
 

@@ -2,6 +2,9 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import {useSession, signIn, signOut, getSession} from "next-auth/client";
+import {paymentContext} from "../context/payments/paymentContext";
+import  React,{ useContext } from "react";
+import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
@@ -9,7 +12,7 @@ export async function getServerSideProps(context) {
 
   if (!session) return {
     props: {
-      balance: "0.00"
+      balance: "300.00"
     }
   }
 
@@ -23,7 +26,24 @@ export async function getServerSideProps(context) {
 }
 
 export default function Home(props) {
+  // Allow state to be used by any pages in the application
   const [session] = useSession();
+  const {payerName, setPayerName, recipientPaymentEmail, setRecipientPaymentEmail,amount, setAmount} = useContext(paymentContext);
+  const router = useRouter();
+
+  function Payment() {
+    // Check if user has enough money to send data
+    // If enough redirect to page for payment
+    // Before redirect, Send the request parameters server-to-server to prepare the payment form.
+    
+    console.log(`Payment made to ${payerName}, ${recipientPaymentEmail}, ${amount}`);
+    if(amount <= props.balance){
+      // Performs redirectto the payments page
+      router.push("/payments");
+    } else{
+      console.log(`Not enough money to pay ${recipientPaymentEmail}`);
+    }
+  }
 
   return (
     <div className={styles.container}>
@@ -122,7 +142,7 @@ export default function Home(props) {
                       <i class="now-ui-icons users_circle-08"></i>
                     </span>
                   </div>
-                  <input type="text" style={{background: "white"}} class="form-control" placeholder="Payer's name..." />
+                  <input type="text" onChange={event => setPayerName(event.target.value)} style={{background: "white"}} class="form-control" placeholder="Payer's name..." />
                 </div>
                 
                 <div class="input-group input-lg">
@@ -131,7 +151,7 @@ export default function Home(props) {
                       <i class="now-ui-icons users_circle-08"></i>
                     </span>
                   </div>
-                  <input type="text" style={{background: "white"}} class="form-control" placeholder="Recipients payment email..." />
+                  <input type="text" onChange={event => setRecipientPaymentEmail(event.target.value)} style={{background: "white"}} class="form-control" placeholder="Recipients payment email..." />
                 </div>
 
                 <div class="input-group input-lg">
@@ -140,14 +160,14 @@ export default function Home(props) {
                       <i class="now-ui-icons users_circle-08"></i>
                     </span>
                   </div>
-                  <input type="text" style={{background: "white"}} class="form-control" placeholder="Amount in ZAR..." />
+                  <input type="text" onChange={event => setAmount(event.target.value)} style={{background: "white"}} class="form-control" placeholder="Amount in ZAR..." />
                 </div>
              
                 <div class="textarea-container" style={{paddingTop: "2rem"}}>
                   <textarea class="form-control" style={{background: "white"}} name="name" rows="4" cols="80" placeholder="Type a message..."></textarea>
                 </div>
                 <div class="send-button" style={{paddingTop: "2rem"}}>
-                  <a href="#pablo" class="btn btn-primary btn-round btn-block btn-lg">Send Message</a>
+                  <a onClick={Payment} href="#pablo" class="btn btn-primary btn-round btn-block btn-lg">Send Message</a>
                 </div>
               </div>
         </div>
