@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import {useSession, signIn, signOut, getSession} from "next-auth/client";
 import {paymentContext} from "../context/payments/paymentContext";
@@ -7,6 +6,7 @@ import  React,{ useContext } from "react";
 import { useRouter } from "next/router";
 
 export async function getServerSideProps(context) {
+
   const session = await getSession(context);
   console.log(session);
 
@@ -31,15 +31,26 @@ export default function Home(props) {
   const {payerName, setPayerName, recipientPaymentEmail, setRecipientPaymentEmail,amount, setAmount} = useContext(paymentContext);
   const router = useRouter();
 
-  function Payment() {
+  async function Payment() {
     // Check if user has enough money to send data
     // If enough redirect to page for payment
     // Before redirect, Send the request parameters server-to-server to prepare the payment form.
     
     console.log(`Payment made to ${payerName}, ${recipientPaymentEmail}, ${amount}`);
     if(amount <= props.balance){
-      // Performs redirectto the payments page
-      router.push("/payments");
+      
+      const res = await fetch("api/payments/initPayments",{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({amount: amount})
+      });
+      const resJSON = await res.json();
+      console.log(resJSON);
+      //router.push("/payments");
+      // set the id and push to card payments page
+     
     } else{
       console.log(`Not enough money to pay ${recipientPaymentEmail}`);
     }
@@ -93,13 +104,13 @@ export default function Home(props) {
             
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)" onclick="scrollToDownload()">
+            <a class="nav-link" href="javascript:void(0)" onClick="scrollToDownload()">
               <i class="now-ui-icons business_money-coins"></i>
               <p>Balance: R{props.balance}</p>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="javascript:void(0)" onclick="scrollToDownload()">
+            <a class="nav-link" href="javascript:void(0)" onClick="scrollToDownload()">
               <i class="now-ui-icons arrows-1_cloud-download-93"></i>
               <p>Withdraw money</p>
             </a>
