@@ -1,8 +1,6 @@
-import {paymentContext} from "../../context/payments/paymentContext";
-import  React,{ useContext } from "react";
-import { checkout, statusPayment } from "../../lib/modules/payments"
+import  React,{ useState,useEffect } from "react";
 import Head from "next/head";
-import Script from 'next/script'
+import { useRouter } from "next/router";
 
 
 // Request for payment checkout form
@@ -10,50 +8,30 @@ import Script from 'next/script'
 // If success display card to user
 // Accept the payment from the user
 
-export async function getServerSideProps(context) {
-
-  // Get payment
-
-  const url='https://eu-test.oppwa.com/v1/checkouts';
-	const data = 'entityId=8a8294174e735d0c014e78cf26461790&amount=92.00&currency=ZAR&paymentType=DB';
-
-	const options = {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded',
-			'Content-Length': data.length,
-			'Authorization':'Bearer OGE4Mjk0MTc0ZTczNWQwYzAxNGU3OGNmMjY2YjE3OTR8cXl5ZkhDTjgzZQ=='
-		}
-	};
-
-  const response = await fetch(url,{
-    method: 'POST',
-		headers: {
-			'Content-Type': 'application/x-www-form-urlencoded',
-			'Content-Length': data.length,
-			'Authorization':'Bearer OGE4Mjk0MTc0ZTczNWQwYzAxNGU3OGNmMjY2YjE3OTR8cXl5ZkhDTjgzZQ=='
-		},
-    body: data
-  });
-
-  const responseJSON = await response.json();
-
-  //Set the ID to be used in another page
-  
-  return {
-    props: {
-      data: responseJSON
-    }
-  }
-}
-
+const shopperResultUrl = "http://localhost:3000/status"
 
 export default function Payments(props) {
-  console.log(props)
 
-  const shopperResultUrl = "http://localhost:3000/status"
+  // Check to see if payment has been prepared
+  const { query } = useRouter();
+  const [payID, setPayID] = useState();
 
-  //const {payerName, setPayerName, recipientPaymentEmail, setRecipientPaymentEmail,amount, setAmount} = useContext(paymentContext);
+  const router = useRouter();
+  useEffect(()=>{
+      if(!router.isReady) return;
+
+      // codes using router.query
+      setPayID(router.query.id);
+      //console.log(router.query.id)
+      
+
+  }, [router.isReady,setPayID]);
+
+
+  if (!payID) return <div>Loading...</div>
+  /*if (!props.data.id) return (
+    <div>Failed to load payments. Please try again</div>
+    )*/
 
     return (
         
@@ -68,7 +46,7 @@ export default function Payments(props) {
           </title>
           <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
           <script>
-            document.getElementById('payment-form').src = `https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId={props.data.id}`
+            document.getElementById('payment-form').src = `https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId={query.id}`
           </script>
         </Head>
 
