@@ -23,7 +23,7 @@ export default async function handler(req, res) {
             })
         } else if (responseJSON.result.code === '000.200.100') {
             return res.status(200).json({
-                payid: responseJSON.result.id,
+                payid: responseJSON.id,
                 message: responseJSON.result.description
             })
         }
