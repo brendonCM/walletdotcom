@@ -25,6 +25,8 @@ export async function getServerSideProps(context) {
   }
 }
 
+
+
 export default function Home(props) {
   // Allow state to be used by any pages in the application
   const [session] = useSession();
@@ -47,8 +49,10 @@ export default function Home(props) {
         body: JSON.stringify({amount: amount})
       });
       const resJSON = await res.json();
-      console.log(resJSON);
-      //router.push("/payments");
+      router.push({
+        pathname: '/payments', 
+        query: {id: resJSON.payid}
+      });
       // set the id and push to card payments page
      
     } else{
