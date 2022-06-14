@@ -45,13 +45,9 @@ export default function Payments(props) {
           Walletdotcom
           </title>
           <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-          <script>
-            document.getElementById('payment-form').src = `https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId={query.id}`
-          </script>
+          <script async src={`https://eu-test.oppwa.com/v1/paymentWidgets.js?checkoutId=${query.id}`}></script>
         </Head>
 
-        
-        <script id="payment-form"></script>
        
         <form action={shopperResultUrl} className="paymentWidgets" data-brands="VISA MASTER AMEX"> </form>       
         
