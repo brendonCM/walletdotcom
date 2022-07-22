@@ -33,3 +33,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# Firestore
+# Credentials needed to access the firestore
+serviceAccountKey.json
