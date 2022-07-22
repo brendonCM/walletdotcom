@@ -16,6 +16,7 @@ export async function getServerSideProps(context) {
     }
   }
 
+  // Fetch user balance info from database API
   var result = await (await fetch("***")).json(); //input API that fetchs balance
 
   return {
@@ -68,7 +69,7 @@ export default function Home(props) {
         <link rel="icon" type="image/png" href="/favicon.png" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <title>
-        Walletdotcom
+        WASP
         </title>
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -91,7 +92,7 @@ export default function Home(props) {
     <div class="container">
       <div class="navbar-translate">
         <a class="navbar-brand" href="./index.html" rel="tooltip" data-placement="bottom" target="_blank">
-        Walletdotcom
+        WASP
         </a>
         <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-bar top-bar"></span>
@@ -144,7 +145,7 @@ export default function Home(props) {
       </div>
       <div class="container">
         <div class="content-center brand">
-          <h1 class="h1-seo">Walletdotcom</h1>
+          <h1 class="h1-seo">WASP</h1>
           <h3>A simple way to pay someone</h3>
         </div>
         <div style={{paddingTop: "26rem;"}}>
@@ -182,7 +183,7 @@ export default function Home(props) {
                   <textarea class="form-control" style={{background: "white"}} name="name" rows="4" cols="80" placeholder="Type a message..."></textarea>
                 </div>
                 <div class="send-button" style={{paddingTop: "2rem"}}>
-                  <a onClick={Payment} href="#pablo" class="btn btn-primary btn-round btn-block btn-lg">Send Message</a>
+                  <a onClick={Payment} href="#pablo" class="btn btn-primary btn-round btn-block btn-lg">Send Payment</a>
                 </div>
               </div>
         </div>
@@ -194,7 +195,7 @@ export default function Home(props) {
     <footer class="footer" data-background-color="black">
       <div class=" container ">
           Coded by
-          <a href="https://getsimplewebsolutions.com/" target="_blank">Simple Web Solutions</a>.
+          <a href="https://getsimplewebsolutions.com/" target="_blank"> Simple Web Solutions</a>.
         </div>
     </footer>
   </div>
