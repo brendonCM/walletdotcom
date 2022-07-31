@@ -1,15 +1,17 @@
 import '../styles/globals.css'
-import {Provider } from "next-auth/client";
-import {PaymentProvider} from "../context/payments/paymentProvider";
+import { SessionProvider } from "next-auth/react"
+import { PeachProvider } from "../src/contexts/payment/providers/peach"
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ 
+  Component,
+  pageProps: { session, ...pageProps }
+ } ) {
   return (
-    <Provider session = {pageProps.session}>
-      <Component {...pageProps} />
-    </Provider>,
-    <PaymentProvider>
-    <Component {...pageProps} />
-  </PaymentProvider>
+    <SessionProvider session={session} refetchInterval={5 * 60}>
+      <PeachProvider>
+        <Component {...pageProps} />
+      </PeachProvider>
+    </SessionProvider>
   )
 }
 
