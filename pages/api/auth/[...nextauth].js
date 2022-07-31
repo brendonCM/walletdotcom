@@ -1,12 +1,13 @@
 import NextAuth from "next-auth";
-import Providers from "next-auth/providers"
+import CognitoProvider from "next-auth/providers/cognito"
 
 export default NextAuth({
     providers: [
-        Providers.Cognito({
+        // Cognito OAuth provider parameters
+        CognitoProvider({
             clientId: process.env.COGNITO_CLIENT_ID,
             clientSecret: process.env.COGNITO_CLIENT_SECRET,
-            domain: process.env.COGNITO_DOMAIN
+            issuer: process.env.COGNITO_ISSUER
         })
     ]
 })
