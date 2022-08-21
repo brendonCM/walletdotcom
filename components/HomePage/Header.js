@@ -17,13 +17,13 @@ function Header(){
             <link href="/now-ui-kit.css?v=1.3.0" rel="stylesheet" />
             <link href="/demo.css" rel="stylesheet" />
 
-            <script src="/jquery.min.js" type="text/javascript" async></script>
-            <script src="/popper.min.js" type="text/javascript" async></script>
-            <script src="/bootstrap.min.js" type="text/javascript" async></script>
-            <script src="/bootstrap-switch.js" async></script>
-            <script src="/nouislider.min.js" type="text/javascript" async></script>
-            <script src="/bootstrap-datepicker.js" type="text/javascript" async></script>
-            <script src="/now-ui-kit.js?v=1.3.0" type="text/javascript" async></script>
+            <script src="/jquery.min.js" type="text/javascript" ></script>
+            <script src="/popper.min.js" type="text/javascript" ></script>
+            <script src="/bootstrap.min.js" type="text/javascript" ></script>
+            <script src="/bootstrap-switch.js" ></script>
+            <script src="/nouislider.min.js" type="text/javascript" ></script>
+            <script src="/bootstrap-datepicker.js" type="text/javascript" ></script>
+            <script src="/now-ui-kit.js?v=1.3.0" type="text/javascript" ></script>
       </Head>
     )
 }
