@@ -1,6 +1,5 @@
 module.exports.User = class User {
     constructor ({
-      userid,
       name = null,
       surname = null,
       email = null,
@@ -9,7 +8,6 @@ module.exports.User = class User {
       balance = null,
       nationality = null
     }) {
-      this.id = userid
       this.name = name
       this.surname = surname
       this.email = email
