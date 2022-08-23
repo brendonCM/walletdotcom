@@ -29,13 +29,32 @@ describe('Users repository', () => {
         const addedUser = await usersRepository.add(testUser);
 
         expect(addedUser).toBeDefined();
-        expect(addedUser.id).toBeDefined();
+        expect(addedUser.userid).toBeDefined();
         expect(addedUser.name).toBe(testUser.name);
-        expect(addedUser.lastName).toBe(testUser.lastName);
-        expect(addedUser.gender).toBe(testUser.gender);
-        expect(addedUser.meta).toEqual(testUser.meta);
+        expect(addedUser.surname).toBe(testUser.surname);
+        expect(addedUser.email).toBe(testUser.email);
+        expect(addedUser.username).toBe(testUser.username);
+        expect(addedUser.password).toBe(testUser.password);
+        expect(addedUser.balance).toEqual(testUser.balance);
+        expect(addedUser.nationality).toBe(testUser.nationality);
 
         const returnedUser = await usersRepository.getById(addedUser.userid);
         expect(returnedUser).toEqual(addedUser);
     })
+
+    /*test('New user should be added and id returned', async () => {
+        const testUser = new User({
+            name: chance.name(),
+            surname: chance.last(),
+            email: chance.email(),
+            username: chance.word(),
+            password: "password",
+            balance: 0.00,
+            nationality: "Zimbabwe"
+        });
+
+        const id = await usersRepository.add(testUser);
+
+        console.log(id)
+    },29000)*/
 })

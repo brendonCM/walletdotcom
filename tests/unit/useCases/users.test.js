@@ -61,5 +61,27 @@ describe('User use cases', () => {
             expect(call.balance).toEqual(testUserData.balance);
             expect(call.nationality).toBe(testUserData.nationality);
         })
+
+        /*describe('Get user use case', () => {
+            test('User should be returned by id', async () => {
+                // generate a fake id
+                const fakeId = "11bf5b37-e0b8-42e0-8dcf-dc8c4aefc000";
+                // call get user by id
+                const userById = await getUserByIdUseCase(dependencies).execute({
+                    id: fakeId
+                })
+                // check the data
+                expect(userById).toBeDefined();
+                expect(userById.id).toBe(fakeId);
+                expect(userById.name).toBeDefined();
+                expect(userById.lastName).toBeDefined();
+                expect(userById.gender).toBeDefined();
+                expect(userById.meta).toBeDefined();
+    
+                // check the mock
+                const expectedId = mockUserRepo.getById.mock.calls[0][0];
+                expect(expectedId).toBe(fakeId)
+            })
+        })*/
     })
 })
